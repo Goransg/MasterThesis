@@ -26,7 +26,10 @@ with connection:
         sql = "SELECT * FROM mergeddata_v2 WHERE rowid_inv LIKE '%EG-ZA%'"
         cursor.execute(sql)      
         result = cursor.fetchall()
-        
+
+# Adding the RUL as time until the specified failure type
+# and assigning each maintenance cycle a cycle ID
+
 rawdata = pd.DataFrame(result)
 RULs = []
 for inv in np.unique(rawdata['ID']):
@@ -57,7 +60,7 @@ for col in rawdata.columns:
 ids = rawdata['ID']
 rowidinv = rawdata['rowid_inv']
 rawdata = rawdata.select_dtypes(exclude=['object', '<M8[ns]'])
-#rawdata['Ts'] = ts
+
 rawdata['rowid_inv'] = rowidinv
 rawdata['ID'] = ids
 rawdata = rawdata[rawdata.Cycle_ID != max(rawdata['Cycle_ID'])]
