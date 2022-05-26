@@ -16,9 +16,6 @@ from os import listdir
 from os.path import isfile, join
 import copy
 
-
-
-
 def add_or_append_weatherdata(SensorVals):
     new_df = pd.DataFrame()
     ws_names = SensorVals.iloc[[0]].values[0]
